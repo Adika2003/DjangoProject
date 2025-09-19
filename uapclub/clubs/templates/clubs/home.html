@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome to UAP CSE Club</h1>
+<p>Available clubs:</p>
+<div class="row">
+  {% for c in clubs %}
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        {% if c.logo %}
+          <img src="{{ c.logo.url }}" class="card-img-top" style="height:180px; object-fit:cover;" alt="logo">
+        {% endif %}
+        <div class="card-body">
+          <h5>{{ c.name }}</h5>
+          <p class="small">{{ c.description|truncatewords:20 }}</p>
+          <a class="btn btn-sm btn-primary" href="{% url 'clubs:club_detail' c.pk %}">Details</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No clubs yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
