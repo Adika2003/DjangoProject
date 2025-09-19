@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Upcoming Events</h2>
+{% for e in events %}
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5><a href="{% url 'events:event_list' e.pk %}">{{ e.title }}</a></h5>
+      <p class="small">{{ e.start_time }} — {{ e.location }} ({{ e.club.name }})</p>
+    </div>
+  </div>
+{% empty %}
+  <p>No events.</p>
+{% end for %}
+{% end block %}
