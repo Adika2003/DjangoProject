@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Blog Posts</h2>
+
+<div class="row">
+  {% for blog in blogs %}
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        {% if blog.featured_image %}
+          <img src="{{ blog.featured_image.url }}" class="card-img-top" style="height:180px; object-fit:cover;">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{% url 'blogs:blog_detail' blog.slug %}">{{ blog.title }}</a>
+          </h5>
+          <p class="text-muted small">
+            <br> {{ blog.author|default:"Anonymous" }} | {{ blog.created_at|date:"M d, Y" }}
+          </p>
+          <p class="card-text">
+            {{ blog.content|truncatewords:30 }}
+          </p>
+          <a class="btn btn-sm btn-primary" href="{% url 'blogs:blog_detail' blog.slug %}">Read More</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No blogs yet.</p>
+  {% end for %}
+</div>
+
+{% if user.is_staff %}
+  <a class="btn btn-success mt-3" href="{% url 'blogs:blog_create' %}">+ New Blog</a>
+{% endif %}
+{% end block %}
