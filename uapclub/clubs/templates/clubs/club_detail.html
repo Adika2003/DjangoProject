@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ club.name }}</h2>
+<p>{{ club.description }}</p>
+{% if club.logo %}
+  <img src="{{ club.logo.url }}" alt="{{ club.name }}" width="300">
+{% endif %}
+{% endblock %}
